@@ -1,0 +1,16 @@
+program lalo;
+var
+numero:integer;
+intento:integer;
+respuesta:integer;
+
+begin
+ writeln ('escribe un numero');
+ readln (numero);
+ respuesta:=numero*2;
+ intento:=-1;
+ writeln ('ahora, exactamente el doble');
+ while intento <> respuesta do
+   readln (intento);
+ writeln ('excelente');   
+end.

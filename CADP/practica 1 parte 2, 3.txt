@@ -1,0 +1,26 @@
+program lolo; 
+var
+nombre:string;
+notaepa:integer;
+aprobados:integer;
+promocion:integer;
+
+begin
+promocion:=0;
+aprobados:=0;
+
+repeat
+ writeln ('escribe el nombre del alumno');
+ readln (nombre);
+ writeln ('ahora la nota de EPA');
+ readln (notaepa);
+  if notaepa >= 8 then
+   promocion:=promocion+1
+  else 
+   if notaepa=7 then
+    aprobados:=aprobados+1;
+until (nombre='lalo');
+
+writeln ('la cantidad de alumnos con 7 es ...', aprobados);
+writeln ('la cantidad de aprobados (8 o mas) es ...', promocion)
+end.

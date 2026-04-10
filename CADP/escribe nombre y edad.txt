@@ -1,0 +1,12 @@
+program lalo;
+var
+nombre:string;
+edad:integer;
+begin
+  writeln ('buen dia, escribe tu nombre');
+  readln (nombre);
+  writeln ('ahora, escribe tu edad');
+  readln (edad);
+  
+  writeln ('tu nombre es...', nombre, '  y tu edad es...', edad);
+end.

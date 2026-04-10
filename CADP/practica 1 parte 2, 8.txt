@@ -1,0 +1,25 @@
+program lolo;
+
+var
+i: integer;
+monto: real;
+cantidad:integer;
+total:real;
+
+begin
+total:=0;
+ for i:= 1 to 3 do begin
+  monto:=-1;
+  cantidad:=0;
+  writeln ('ingrese los montos del dia...',i);
+  readln (monto);
+  while monto<>0 do begin
+    cantidad:=cantidad+1;
+    total:= total+monto;
+    readln (monto)
+    end;
+  writeln ('la cantidad de montos que hubo en el dia ...', i, '...fue..', cantidad);
+  end;
+ writeln ('la venta total del mes fue...', total);
+ end.
+    

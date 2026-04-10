@@ -1,0 +1,22 @@
+program lalo;
+
+var 
+i:integer;
+num: integer;
+nummayor: integer;
+posicion: integer;
+numpos: integer;
+
+begin
+nummayor:=0;
+writeln ('escribe 10 numeros, el numero mas alto saldra al final');
+for i:=1 to 10 do 
+begin
+ readln (num);
+ if num>nummayor then begin
+   nummayor:= 0+num;
+   numpos:=i;
+   end;
+ end; 
+writeln ('el numero mas alto es...', nummayor,'...en la posicion...', numpos);
+end.

@@ -1,0 +1,12 @@
+program lalo;
+var
+numero:integer;
+valorabs:real;
+
+begin
+writeln ('escribe el numero para identificar el valor absoluto');
+readln (numero);
+valorabs:=abs(numero);
+writeln ('el valor absoluto es ',valorabs);
+ 
+end.

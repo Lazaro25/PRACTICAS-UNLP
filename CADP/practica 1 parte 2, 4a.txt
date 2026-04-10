@@ -1,0 +1,26 @@
+program lolo; 
+var
+numero:integer;
+min1: integer;
+min2: integer;
+i:integer;
+
+begin
+writeln ('escribe numeros para calcular los dos minimos, la lectura finalizara al mandar el numero 0');
+min1:=9999;
+min2:=9999;
+repeat
+ readln (numero);
+ if numero<min1 then begin
+  min2:=min1;
+  min1:=numero;
+  end
+ else
+ if numero < min2 then begin
+  min2:=numero;
+  end;
+until numero=0;
+ 
+writeln ('el numero mas bajo es...', min2);
+writeln ('el que le sigue es...,', min1);
+end.

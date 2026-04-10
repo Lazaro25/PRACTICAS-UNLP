@@ -1,0 +1,23 @@
+program lalo;
+
+var 
+num1: integer;
+suma: integer;
+cant: integer;
+mayor:integer;
+
+begin
+cant:=10;
+mayor:=0;
+suma:=0;
+writeln ('escribe 10 numeros enteros, la suma saldra despues del decimo');
+while cant<> 0 do begin;
+ readln (num1);
+ suma :=suma+num1;
+ cant:=cant-1;
+ if num1>5 then
+  mayor:=mayor+1
+ end;
+writeln ('la suma de todos es...', suma);
+writeln ('la cantidad de numeros mayores a 5 es...', mayor);
+end.

@@ -1,0 +1,43 @@
+program lolo;
+var
+i:integer;
+cantidad:integer;
+codigo:integer;
+monto:real;
+total:real;
+mejortotal:real;
+cantinversiones:integer;
+promedio:real;
+codmayor:integer;
+
+begin
+codigo:=0;
+mejortotal:=0 ;
+cantinversiones:=0;
+while codigo <>100 do begin; 
+ total:=0; 
+ writeln ('ingrese el codigo de su empresa');
+ writeln ('la lectura de codigos finaliza al ingresar la empresa con cod:100');
+ writeln ('-----------------------------------------------------------------'); 
+ readln (codigo);
+ writeln ('ahora ingrese la cantidad de inversiones de la empresa');
+ readln (cantidad);
+ writeln ('por ultimo, ingrese el monto dedicado a cada inversion');
+  for i:=1 to cantidad do begin
+   readln (monto);
+   total:= total+monto;
+   end;
+ if total>mejortotal then
+  mejortotal:=total;
+  codmayor:=codigo;
+ if total>=50000.00 then 
+  cantinversiones:=cantinversiones+1; 
+ promedio:=total/cantidad;
+ writeln ('el promedio de esta empresa es de...',promedio);
+ end;
+writeln ('--------------------------------------------------------------------------------');
+writeln ('programa terminado, el codigo de la empresa con mayor monto total es...',codmayor);
+writeln ('--------------------------------------------------------------------------------');
+writeln ('la cantidad de empresas con inversiones mayores a 50000$ son...', cantinversiones);
+end.
+   

@@ -1,0 +1,19 @@
+program lalo;
+var
+num1:integer;
+num2:integer;
+begin
+  writeln ('decime un numero,bobito');
+  readln (num1);
+  writeln ('ahora otro, boludin');
+  readln (num2);
+  
+  if (num1<num2) then
+   writeln(num2,' es el numero mas grande')
+   else
+    if (num1>num2) then 
+     writeln (num1,' es el numero mas grande')
+    else
+    writeln ('los numeros son iguales');
+ 
+end.

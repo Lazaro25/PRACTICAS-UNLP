@@ -1,0 +1,62 @@
+program lolo;
+var 
+i:integer;
+piloto:string;
+tiempo:real; 
+min1:real;
+min2:real;
+nombre1:string;
+nombre2:string;
+nombre3:string;
+nombre4:string;
+max1: real;
+max2: real;
+
+
+begin
+nombre1:='nada';
+nombre2:='nada';
+nombre3:='nada';
+nombre4:='nada';
+min1:=9999;
+min2:=9999;
+max1:=-1;
+max2:=-1;
+
+for i:=1 to 4 do begin 
+ writeln ('escriba el nombre del piloto');
+ readln (piloto);
+ writeln ('ahora el tiempo total');
+ readln (tiempo);
+  if tiempo < min1 then
+   begin
+   min2:=min1;
+   nombre2:=nombre1;
+   min1:=tiempo; 
+   nombre1:=piloto; 
+   end
+   else if tiempo <min2 then
+   begin
+   min2:=tiempo; 
+   nombre2:=piloto;
+   end; 
+  
+  if tiempo>max1 then begin 
+  max2:=max1;
+  nombre4:=nombre3;
+  max1:=tiempo;
+  nombre3:=piloto;
+  end 
+  else if (tiempo>max2) then 
+  max2:= tiempo;
+  nombre4:=piloto 
+ end;
+
+writeln ('el primer puesto fue...',nombre1,'!...con el tiempo de...', min1);
+writeln ('el segundo puesto fue...',nombre2,'!...con el tiempo de ...',min2);
+writeln ('el anteultimo puesto fue ...', nombre3,'!...con el tiempo de ...', max2);
+writeln ('el ultimo puesto fue...',nombre4, '!...con el tiempo de...',max1);
+end.
+
+  
+  

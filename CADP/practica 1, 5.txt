@@ -1,0 +1,38 @@
+program lalo;
+
+var 
+legajo:integer;
+promedio:real;
+cantidad:integer;
+cantpro:integer;
+cantexcelente:integer;
+porcentaje:real;
+
+begin
+cantidad:=0;
+cantpro:=0;
+cantexcelente:=0;
+legajo:=0 ;
+writeln ('presiona un numero para comenzar,presiona -1 para terminar');
+readln (legajo);
+
+while legajo <> -1 do
+ begin;
+ writeln ('por favor escribe el numero de legajo');
+ readln (legajo);
+ writeln ('y ahora el promedio (en formato real)');
+ readln (promedio);
+ cantidad := cantidad+1;
+ if promedio>6.5 then
+  cantpro:=cantpro+1;
+ if promedio>8.5 then
+  if legajo<2500 then
+  cantexcelente:=cantexcelente+1;
+ end;
+porcentaje:= (cantexcelente/cantidad)*100;
+writeln ('programa finalizado');
+writeln ('cantidad de legajos leidos: ', cantidad);
+writeln ('cantidad de promedios mayores a 6,5: ', cantpro);
+writeln ('cantidad de alumnos destacados: ',porcentaje);
+ 
+end.

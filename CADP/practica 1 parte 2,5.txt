@@ -1,0 +1,28 @@
+program lolo;
+var
+max: integer;
+min: integer;
+numero: integer;
+total:integer;
+
+begin
+max:=-9999;
+min:=9999;
+total:=0;
+
+writeln ('escriba una cadena de numeros, el programa leera el mas alto y el mas bajo, y suma del total');
+writeln ('recuerde que el numero requerido para terminar es 100');
+repeat;
+ readln (numero);
+  if numero>max then
+   max:=numero;
+  if numero<min then 
+   min:= numero;
+  total:= total+numero 
+until numero=100;
+
+writeln ('programa finalizado');
+writeln ('numero mas alto leido...',max);
+writeln ('numero mas bajo leido...',min);
+writeln ('la suma de todos los numeros leidos es...', total);
+end.
