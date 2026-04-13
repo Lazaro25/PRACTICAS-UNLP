@@ -1,0 +1,17 @@
+3. dado el siguiente programa, indicar cual es el error y su causa.
+
+program alcance3;
+var a:integer;
+procedure uno;
+var b: integer;
+begin
+ b:=2;
+ writeln (b);
+end;
+begin
+ a:=1;
+ uno;
+ writeln (a,b);
+end.
+
+da error porque no tiene la variable global b, al escribir el writeln (a,b) dara error ahí.
