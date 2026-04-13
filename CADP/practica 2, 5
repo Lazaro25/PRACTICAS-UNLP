@@ -1,0 +1,14 @@
+5. dado el siguiente programa que tiene como objetivo imprimir en pantalla el numero 4, indicar cual es el error.
+
+program alcance4;
+function cuatro: integer;
+begin
+ cuatro:=4;
+end;
+var a :integer;
+begin 
+ cuatro;
+ writeln (a);
+end.
+
+el error esta en que deberia imprimir desde el procedure, que es el que tiene la variable con el valor 4, o en su defecto, poner una variable con un 4 afuera del procedure
