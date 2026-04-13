@@ -1,0 +1,25 @@
+6.
+program Modulo;
+
+procedure lecturamaximo;
+var
+num:integer;
+maximo:integer;
+begin
+ maximo:=-1;
+ write('ingresar un numero');
+ read(num);
+ while(num>=0)do begin
+   if (num MOD 2=0)then
+    BEGIN 
+    if(num>maximo)then
+      maximo:=num;
+    end;
+   write('ingresar un numero');
+   read(num);
+  end;
+ write('el numero maximo es',maximo)
+end;
+BEGIN
+lecturamaximo;
+END
