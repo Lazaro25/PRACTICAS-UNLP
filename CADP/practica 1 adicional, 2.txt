@@ -1,0 +1,91 @@
+program lolo; 
+var
+respuesta:string;
+legajo:integer;
+condicion: string;
+ingresantes:integer;
+recursantes:integer;
+i:integer;
+nota:real ;
+promedio:real;
+cant10:integer;
+cant0:integer;
+presentes:integer;
+maxdiez1:integer;
+maxdiez2:integer;
+maxcero1:integer;
+maxcero2:integer;
+parcingre:integer;
+parcrecu:integer;
+begin
+presentes:=0;
+maxcero1:=0;
+maxcero2:=0;
+maxdiez1:=0;
+maxdiez2:=0;
+parcingre:=0;
+parcrecu:=0;
+ingresantes:=0;
+recursantes:=0;
+
+writeln ('ingrese el numero del legajo del alumno');
+writeln ('la lectura finaliza al ingresar el numero de legajo -1');
+readln (legajo);
+while legajo <> -1 do begin
+ cant10:=0;
+ cant0:=0;
+ writeln ('ingrese su condicion');
+ writeln ('"I" para ingresante,  "R" para recursante');
+ readln (condicion);
+  if condicion='I' then 
+   ingresantes:=ingresantes+1
+  else 
+   recursantes:= recursantes+1;
+ 
+ 
+ for i:=1 to 5 do begin;
+  promedio:=0;
+  writeln ('hiciste la autoevaluacion numero=',i,'?...escribe "SI" si es afirmativo');
+  readln (respuesta);
+  if respuesta<>'SI' then begin
+   nota:=-1;
+   end
+  else begin
+   writeln ('ingrese la nota de la autoevaluacion numero=', i);
+   readln (nota);
+   if nota= 10 then
+    cant10:= cant10+1;
+   if nota= 0 then 
+    cant0:= cant0+1;
+   presentes:=presentes+1    
+   end;
+  if maxdiez1<cant10 then 
+   maxdiez2:=maxdiez1;
+   maxdiez1:=legajo;
+  if maxcero1<cant0 then 
+   maxdiez2:=maxcero1;
+   maxcero1:=legajo;
+   promedio:=promedio+nota;
+  if (presentes>=4) and (condicion='I') then
+   parcingre:=parcingre+1;
+   presentes:=0;
+  if (presentes>=4) and (condicion<>'I') then
+   parcrecu:=parcrecu+1;
+   presentes:=0;
+  end;
+ writeln ('el promedio del alumno es de...',promedio/5);
+ writeln ('____________________________________________');
+ writeln ('____________________________________________');
+ writeln ('____________________________________________');
+ writeln ('ingrese el legajo del siguiente estudiante');
+ readln (legajo);
+ end;
+
+writeln ('la cantidad de alumnos ingresantes son...', ingresantes);
+writeln ('la cantidad de ingresantes en condiciones de dar el parcial son...', parcingre);
+writeln ('-------------------------------------------------------------------------------');
+writeln ('la cantidad de alumnos recursantes son...', recursantes);
+writeln ('la cantidad de recursantes en condiciones de dar el parcial son...', parcrecu);
+
+end. 
+  
