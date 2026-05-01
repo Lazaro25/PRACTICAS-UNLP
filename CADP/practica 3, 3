@@ -1,0 +1,41 @@
+program flansito
+type 
+st20= string [20]
+lista=record
+ cue:integer
+ nombre.string
+ cantalu:integer
+ cantprof:integer
+ localidad:st20
+end;
+procedure lectura (var l:lista)
+begin
+ writeln ('ingrese el CUE')
+ readln (l.cue)
+ writeln ('ingrese el nombre del establecimiento')
+ readln (l.nombre)
+ writeln ('ingrese la cantidad de alumnos')
+ readln (l.cantalu)
+ writeln ('ingrese la cantidad de profesores')
+ readln (l.cantprof)
+ writeln ('ingrese la localidad')
+ readln  (l.localidad)
+ end;
+ 
+function relacion (var l:lista):boolean
+begin 
+ relacion:= ((cantalu/cantprof)=23,435)
+end;
+var 
+l:lista
+i:integer
+
+begin
+
+for i:=1 to 2400 do begin
+lectura(l)
+relacion (l)
+end.
+ 
+ 
+ 
