@@ -1,0 +1,29 @@
+program lolo
+type
+ casamiento=record
+  mes = integer
+  dia = integer
+  anio= integer
+  
+procedure leer (var casa:casamiento)
+writeln ('ingrese el dia')
+readln (casa.dia)
+writeln ('ingrese el mes')
+readln (casa.mes)
+end;
+
+var
+casa:casamiento 
+cant: integer
+
+begin
+cant:=0 
+leer
+while (casa.anio <>2020) and (casa.anio=2019) do begin
+ if casa.mes <=3 then 
+  cant:= cant+1
+ if casa.dia <=10 then 
+  cant:= cant+1 
+ end;
+writeln ('la cantidad de casamientos en enero febrero y marzo, o en los primeros 10 dias es...',cant) 
+end.
