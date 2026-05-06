@@ -1,0 +1,53 @@
+{Realizar un programa que lea información de autos que están a la venta en una concesionaria. De cada auto se
+lee: marca, modelo y precio. La lectura finaliza cuando se ingresa la marca “ZZZ” que no debe procesarse. La
+información se ingresa ordenada por marca. Se pide calcular e informar:
+a. El precio promedio por marca.
+b. Marca y modelo del auto más caro.}
+
+program lolo;
+auto=record
+ marca:string
+ modelo:string
+ precio:real 
+
+procedure leer (var a:auto)
+begin
+ writeln ('ingrese la marca del auto')
+ readln (a.marca)
+ writeln ('ingrese el modelo del auto')
+ readln (a.modelo)
+ writeln ('ingrese el precio')
+ readln (a.precio)
+ end;
+ 
+var
+a:auto 
+actual: string
+preciototal: real 
+cantidad: integer 
+modelocaro:string
+marcacara:string
+preciomax: integer 
+begin
+ leer (a)
+ actual:= a.marca
+ while a.marca <> 'zzz' do begin 
+ cant:=0
+ preciototal:=0
+  while (actual=a.marca) do begin 
+   cant:= cant + 1
+   preciototal:= preciototal+a.precio;
+   if (a.precio>preciomax ) and (a.marca<>'zzz') then begin
+    marcacara:=a.marca
+    modelocaro:=a.modelo
+    end;
+   leer(a)
+   end;
+  writeln ('el promedio de la marca...', a.marca,"... es=", preciototal/cant) 
+  leer (a)
+  
+  end;
+writeln ('la marca mas cara fue...', marcacara, '... y el modelo mas caro fue...',modelocaro) 
+end.    
+   
+ 
