@@ -1,0 +1,71 @@
+program ludmi;
+type 
+registro=record 
+ marca: string;
+ linea: string;
+ cores: integer;
+ velocidad: real;
+ tamaño: integer;
+ end;
+
+procedure leer (var r:registro);
+ begin
+ writeln ('ingrese el nombre de la marca, ingrese "FIN" para cambiar de marca');
+ readln (r.marca);
+ writeln ('ingrese la linea de procesador');
+ readln (r.linea);
+ writeln ('ingrese la cantidad de cores');
+ readln (r.cores);
+ writeln ('ingrese la velocidad (en GHz');
+ readln (r.velocidad);
+ writeln ('por ultimo, ingrese el tamaño (en nanometros');
+ readln (r.tamaño);
+ end;
+ 
+procedure lolo (var r.registro,multipro,max1,max2,cantpro:integer;marca, linea: string);
+ begin
+  max1:=-1
+  max2:=-1
+  cantpro:= 0 
+  multipro:=0
+  mactual:= r.marca 
+  while (mactual=r.marca) and (r.marca <>0) do begin 
+   if (r.cores>1) and (r.velocidad >=2) then begin 
+    multipro:=multipro+1
+    end;
+   if r.cores>2 and (r.tamaño<=22)then begin 
+    marca:=r.marca 
+    linea:=r.linea
+    writeln ('el procesador de la marca...',marca, '... y de la linea...', linea,'... es optimo (cantidad de de transistores y de cores validos');
+    end;
+   if r.tamaño = 14 then  
+    cantpro:=cantpro+1;
+   if cantpro>max1 then 
+    max2:=max 1;
+    max1:=cantpro;
+    else if cantpro>max2 then 
+     max2:=cantpro;
+    leer (r);
+    writeln ('la cantidad de multriprocesadores de hasta 22 GHz de esta marca son...', multipro);
+    end;
+ end; 
+ 
+var
+r:registro;
+max1: integer;
+max2: integer;
+
+begin
+ leer (r);
+ while r.cores <> 0 do begin 
+  lolo (r); 
+  end;
+ writeln ('la marca de procesadores con 14 transistores y mayor cantidad de procesadores es...', max1);
+ writeln ('la segunda marca es ...', max2);
+ end.   
+
+
+
+
+
+ 
