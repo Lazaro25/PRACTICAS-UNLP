@@ -1,0 +1,53 @@
+program lolo;
+type 
+vnum= array [0 to 9] of integer 
+
+procedure inicio (var v:vnum);
+var
+i:integer;
+begin 
+ for i:=0 to 9 do 
+  v[i]:=0;
+  end;
+
+procedure leer (var: num:integer );
+begin 
+ writeln ('ingese un numero de teclado, ingrese -1 para finalizar el programa ');
+ readln (num);
+ end;
+ 
+procedure secarropas (var v:vnum; n:num)
+var
+dig: integer 
+begin 
+ if (num=0)then
+  v[0]:=v[0]+1;
+ while (n>0) do begin 
+  dig:=n mod 10;
+  v[dig]:= v[dig]+1;
+  n:=n div 10;
+  end;
+ end;  
+
+procedure informar (var: v:vnum )
+var
+i:integer 
+
+begin 
+for i:= 0 to 9 do begin 
+ writeln ('cantidad de digitos "',i,'"......=',v[i])
+ end;
+end; 
+
+var
+num:integer 
+v:vnum
+
+begin 
+leer(num)
+while num <> -1 do begin 
+ secarropas (vnum,num);
+ leer (num);
+ end;
+informar (v);
+end. 
