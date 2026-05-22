@@ -1,0 +1,54 @@
+program lalo;
+type 
+ vector= array [1 to 400] of registro 
+
+ registro=record
+  numero: integer;
+  dni: integer;
+  apellido: string;
+  nombre: string;
+  año:integer;
+ end;
+
+procedure chinchulin (var r:registro;n1,n2:string v:vector; porcentaje,max1,max2,pares:integer);
+begin 
+ pares:=0;
+ max1:=9999
+ max2:=9999
+ for i:= 1 to 400 do begin 
+  writeln ('ingrese el numero de inscripcion del alumno numero...'i);
+  readln (v[i].numero);
+  writeln ('ingrese el numero de dni');
+  readln (v[i].dni);
+  if (v[i].dni mod 2 = 0) then 
+   pares:= pares+1
+  writeln ('ingrese el nombre y apellido');
+  readln (v[i].nombre);
+  writeln ('ingrese el año de nacimiento');
+  readln (v[i].año);
+   if (v[i].año<max1) then
+    max2:=max1
+    n2:=n1
+    max1:=v[i].año;
+    n1:=v[i].nombre;
+   else if (v[i].año<max2)then 
+   max2:=v[i].año;
+   n2:=v[i.nombre];
+    
+  end;
+ porcentaje:= (pares div 400)* 100;
+ end;
+
+var: 
+r: registro;
+v:vector;
+pares:integer;
+porcentaje: integer;
+max1:integer;
+max2:integer;
+n1:string;
+n2:string;
+begin
+chinchulin (r,n1,n2,v,pares,max1,max2);
+writeln ('el porcentaje de dni con numeros pares es...',porcentaje);
+writeln ('las personas con mayor edad del grupo son...',n2,'...y...',n2);
