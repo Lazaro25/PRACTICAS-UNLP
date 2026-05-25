@@ -1,7 +1,5 @@
 program lalo;
 type 
- vector= array [1 to 400] of registro 
-
  registro=record
   numero: integer;
   dni: integer;
@@ -10,7 +8,9 @@ type
   año:integer;
  end;
 
-procedure chinchulin (var r:registro;n1,n2:string v:vector; porcentaje,max1,max2,pares:integer);
+vector= array [1...400] of registro 
+
+procedure chinchulin (var r:registro;n1,n2:string v:vector;var: porcentaje,max1,max2,pares:integer);
 begin 
  pares:=0;
  max1:=9999
@@ -29,17 +29,17 @@ begin
    if (v[i].año<max1) then
     max2:=max1
     n2:=n1
-    max1:=v[i].año;
-    n1:=v[i].nombre;
+    max1:=v[i].año
+    n1:=v[i].nombre
    else if (v[i].año<max2)then 
-   max2:=v[i].año;
-   n2:=v[i.nombre];
+   max2:=v[i].año
+   n2:=v[i].nombre;
     
   end;
  porcentaje:= (pares div 400)* 100;
  end;
 
-var: 
+var
 r: registro;
 v:vector;
 pares:integer;
@@ -49,6 +49,8 @@ max2:integer;
 n1:string;
 n2:string;
 begin
-chinchulin (r,n1,n2,v,pares,max1,max2);
+chinchulin (r,n1,n2,v,pares,porcentaje,max1,max2);
 writeln ('el porcentaje de dni con numeros pares es...',porcentaje);
 writeln ('las personas con mayor edad del grupo son...',n2,'...y...',n2);
+
+el punto 9 te pide a lo sumo 400, basicamente es cambiar el for 400 por un while  menor o igual a 400, y que corte si se ingresa el -1, podria hacerlo pero paja (? la idea es la misma 
