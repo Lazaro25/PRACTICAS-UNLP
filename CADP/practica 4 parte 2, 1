@@ -1,0 +1,54 @@
+program quilmes;
+
+type 
+vector= array [1..500] of integer;
+
+{______________________________________________________________________________________________________________}
+function buscar (v:vector ; diml:integer ; n:integer): boolean; 
+var 
+pos: integer;
+encontre: boolean;
+begin
+ pos:= 1;
+ encontre:= false;
+ while (pos<=diml) and (not encontre) do begin 
+  if v[pos]=n then 
+   encontre:= true 
+  else 
+   pos:= pos +1;
+  end;
+ buscar:= encontre;
+ end;
+{_______________________________________________________________________________________________________________} 
+procedure cargarvector (var v:vector; var diml: integer);
+var 
+numero: integer;
+begin
+ diml:=0;
+ writeln ('escriba un numero para el campo...',v[diml],'... para finalizar la carga de vectores ingrese "-9999"');
+ readln (numero);
+ while (numero <> -9999) and (diml < 500) do begin 
+  diml:= diml +1;
+  v[diml]:= numero ;
+  if diml<500 then begin 
+   writeln ('escriba un numero para el campo', v[diml]);
+   readln (numero);
+   end; 
+  end;
+ end; 
+{________________________________________________________________________________________________________________}
+var {PRINCIPAL}
+n:integer;
+v: vector;
+diml: integer; 
+begin 
+ cargarvector (v,diml);
+ writeln ('ingrese un numero para buscar en los vectores');
+ readln (n);
+ if buscar(v,diml,n) then 
+  writeln  ('el numero...',n,'... se encuentra en el vector!!!')
+ else 
+  writeln ('el numero ...',n,'no se encuentra en el vector');
+ end. 
+  
+  
