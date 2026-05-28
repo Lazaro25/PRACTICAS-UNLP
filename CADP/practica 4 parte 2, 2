@@ -1,0 +1,84 @@
+program practica;
+ type
+ vector= array [1..500] of string;
+
+ procedure leervector (var v:vector; var diml:integer );
+ var
+ nombre: string;
+ begin 
+  diml:=0;
+  write ('íngrese el nombre del alumno, para finalizar el ingreso de alumnos ingrese "ZZZ"');
+  readln (nombre);
+  while (nombre <>"ZZZ") and (diml < 500) do begin 
+    diml:= diml+1;
+    v [diml]:= nombre;
+     if (diml <500) then begin 
+        write ('ingrese el siguiente nombre del alumno,para finalizar ingrese "ZZZ"');
+        readln (nombre);
+        end;
+     end;
+    end;
+
+ procedure eliminar (var v:vector; var diml:integer; nombreborrador:string);
+ var
+ posi:integer;
+ i:integer;
+ encontrar:boolean; 
+
+ begin 
+  posi:=1;
+  encontrar:=false;
+  while (posi<=diml) and (not encontrar) do begin 
+   if (v[posi]=nombreborrador) then 
+    encontrar:= true 
+   else posi:=posi+1; 
+   end;
+  if (encontrar)then  begin 
+   for i :=posi to diml -1 do begin 
+    v[i]:=v[i+1];
+    end;
+   diml:= diml-1;
+   writeln ( 'se borro el nombre');
+   end else
+   writeln ('el nombre no se encontro');
+  end;
+
+ procedure agregar (var v:vector; var diml:integer; nombrenuevo:string);
+ var 
+ i:integer;
+ begin 
+  if diml < 500 then begin 
+  for i:= diml downto 4 do begin 
+   v[i+1]:= v[i];
+   end;
+  v[4]:=nombrenuevo;
+  diml:=diml+1;
+  writeln ('se agrego el nombre');
+   end else writeln ('no se puede agregar el nombre, vector lleno');
+  end;
+
+ procedure agregarmas (var v:vector; var diml:integer; nombrenuevo: string);
+ begin 
+  if diml <500 then begin 
+   diml:= diml+1;
+   v[diml]:=nombrenuevo;
+   writeln ('se agrego el nombre a la lista ') ;
+  end else write ('no se pudo agregar, vector lleno');
+  end;
+
+ var
+ v:vector;
+ diml:integer;
+ nombreborrador:string;
+ nombrenuevo:string;
+ begin 
+  leervector (v,diml);
+  writeln ('ingrese el nombre a buscar y eliminar (solo el primer encuentro)');
+  readln (nombreborrador);
+  eliminar (v,diml,nombreborrador);
+  writeln ('ingrese el nombre a agregar en la posicion 4');
+  readln (nombrenuevo);
+  agregar (v,diml,nombrenuevo);
+  writeln ('ingrese el nombre a agregar en la ultima posicion del vector');
+  readln (nombrenuevo );
+  end.
