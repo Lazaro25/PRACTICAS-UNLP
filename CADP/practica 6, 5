@@ -1,0 +1,121 @@
+program lalo;
+type 
+registro = record 
+ codigo: integer;
+ descripcion: string;
+ precio:real;
+ stockactual:integer;
+ stockmin:integer;
+ end;
+ 
+nodo = record
+ dato: registro;
+ sig : ^nodo;
+ end;
+ 
+listaprod= ^nodo;
+
+procedure leer (var r:registro);
+begin 
+ writeln ('ingrese el codigo del producto, ingrese -1 para terminar');
+ readln (r.codigo);
+  if (r.codigo <>-1 )then begin 
+  writeln ('ingrese la descripcion del producto');
+  readln (r.descripcion);
+  writeln ('ingrese el precio del producto');
+  readln (r.precio);
+  writeln ('ingrese el stock del producto');
+  readln (r.stockactual);
+  writeln ('ingrese el stock minimo');
+  readln (r.stockmin);
+  end;
+ end; 
+  
+procedure agregaradelante (var l:listaprod; r: registro);
+ var
+  aux: listaprod;
+ begin  
+  new (aux);
+  aux^.dato :=r;
+  aux^.sig:= l;
+  l:= aux;
+  end; 
+  
+procedure cargarlista (var l:listaprod);
+var
+r:registro;
+begin 
+ l:=nil;
+ leer (r);
+ while (r.codigo <> -1 ) do begin
+  agregaradelante (l,r);
+  leer (r);
+  end;
+ end;
+
+function puntob (codigo: integer  ): boolean;
+var
+dig:integer;
+pares:integer;
+begin
+ pares:=0;
+ while (codigo <>0) and (pares<3)do begin 
+  dig:= codigo mod 10;
+  if (dig mod 2 = 0) then 
+   pares:= pares +1;
+  codigo:= codigo div 10;
+  end ;
+  
+ puntob:= (pares>=3);
+ end; 
+
+procedure  puntoayc (l:listaprod);
+var
+cantmin: integer;
+total: integer;
+min1: real;
+min2: real;
+codigo1: integer;
+codigo2: integer; 
+
+begin
+ cantmin:=0;
+ total:=0;
+ codigo1:= -1;
+ codigo2:=-1;
+ min1:=999999;
+ min2:=999999;
+
+ writeln ('punto b')
+ while (l<>nil) do begin 
+  total:= total+1;
+  if (l^.dato.stockactual < l^.dato.stockmin) then
+   cantmin:= cantmin+1;
+  if puntob (l^.dato.codigo) then 
+   writeln ('primer descripcion del producto...', l^.dato.descripcion);
+  if (l^.dato.precio<min1) then begin
+   min2:=min1;
+   codigo2:=codigo1;
+   min1:=l^.dato.precio;
+   codigo1:=l^.dato.codigo;
+   end
+  else if (l^.dato.precio<min2) then begin
+   min2:= l^.dato.precio;
+   codigo2:= l^.dato.codigo;
+  end;
+ l:= l^.sig;
+ end;
+ writeln ('datos finales');
+ if total>0 then
+  writeln ('porcentaje de stock minimo......', (cantmin*100/total),'%')
+ else 
+  writeln ('no se ingresaron datos');
+ writeln ('los codigos de los productos mas economicos fueron...',codigo1,'...y...', codigo2);
+end;
+ 
+var
+lista: listaprod;
+begin 
+ cargarlista (lista);
+ puntoayc (lista);
+ 
