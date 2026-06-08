@@ -1,0 +1,116 @@
+program lalo;
+type
+ egresado= record
+  numero: integer;
+  apellido: string;
+  promedio: real;
+ end;
+ 
+lista= ^nodo;
+nodo= record
+ dato: egresado;
+ sig: lista;
+end;
+
+vector= array [1..10] of egresado;
+ 
+procedure leerlista (var e: egresado);
+begin 
+ writeln ('ingrese el numero del alumno');
+ readln (e.numero);
+ if e.numero <> 0 then begin 
+  writeln ('ingrese el apellido del alumno');
+  readln (e.apellido);
+  writeln ('ingrese el promedio ');
+  readln (e.promedio);
+  end;
+ end; 
+  
+procedure agregaradelante (var l:lista; e:egresado);
+var
+aux:lista;
+begin 
+ new (aux);
+ aux^.dato:=e;
+ aux^.sig:=l;
+ l:=aux;
+ end;
+
+procedure cargarlista (var l:lista);
+var
+ e: egresado;
+begin
+ l:= nil;
+ leerlista (e);
+ while (e.numero <> 0 ) do begin 
+  agregaradelante (l,e);
+  leerlista(e);
+  end;
+ end; 
+
+
+
+procedure inivec (var v:vector);
+var
+i: integer;
+begin 
+ for i:= 1 to 10 do begin 
+  v[i].promedio:=-1;
+  v[i].numero:= 0;
+  v[i].apellido:= '';
+  end;
+ end; 
+ 
+procedure cargavec (var v: vector; e:egresado);
+var
+i: integer;
+lugar:integer;
+begin
+ i:=1;
+ while (i<=10) and (e.promedio < v[i].promedio) do
+  i:= i+1;
+ if (i<=10) then begin
+  for lugar:= 10 downto i+1 do 
+   v [lugar]:= v[lugar-1];
+  v[i]:=e;
+  end;
+ end;
+ 
+procedure recorrerlista (l:lista ;var v:vector);
+begin 
+ inivec (v);
+ while l <> nil do begin 
+  cargavec (v,l^.dato);
+  l:=l^.sig;
+  end;
+ end;
+ 
+procedure respuesta (v:vector); 
+ var
+ i: integer;
+ begin 
+  for i:= 1 to 10 do begin
+  if v[i].numero <> 0 then begin
+   writeln ('puesto numero...',i,'... es para...',v[i].apellido);
+   writeln ('numero del alumno...',v[i].numero);
+   writeln ('promedio del alumno...',v[i].promedio);
+   writeln ('____________________________________________________________________________________________________'); 
+   end;
+  end;
+ end;
+
+var
+l: lista;
+v:vector;
+
+begin
+ cargarlista (l);
+ if (l<>nil )then begin
+  recorrerlista (l,v);
+  respuesta (v);
+  end
+ else writeln ('no se ingresaron respuestas');
+ end. 
+ 
+ 
+  
