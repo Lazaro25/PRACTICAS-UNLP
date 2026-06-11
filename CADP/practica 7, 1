@@ -1,0 +1,144 @@
+program lolo;
+const
+ rangocodigo = 1..5
+
+type 
+ vector= array [rangocodigo] of integer;
+end;
+
+registro= record
+ dni: integer;
+ nombre: string;
+ edad: integer;
+ codigo: rangocodigo;
+ 
+lista= ^nodo;
+nodo=record
+ dato:registro;
+ sig: lista;
+end;
+
+procedure leer (var r:registro);
+begin
+  writeln ('ingrese el dni del actor, ingrese el dni "33555444" al final de la carga');
+  readln (r.dni);
+  writeln ('ingrese el nombre completo del actor');
+  readln (r.nombre);
+  writeln ('ingrese la edad');
+  readln (r.edad);
+  writeln ('ingrese el codigo de genero a eleccion (de 1 a 5)');
+  readln (r.codigo);
+  end; 
+ 
+ procedure agregaradelante (var l:lista;r:registro);
+var
+ aux: lista
+begin 
+ new (aux);
+ aux^.dato:=r;
+ aux^.sig:=l;
+ l:=aux;
+end;
+
+
+procedure armarlista (var l:lista);
+var
+r:registro;
+begin 
+ l:= nil;
+ repeat 
+  leer (r);
+  agregaradelante (l,r);
+ until r.dni= 33555444;
+end;
+
+function puntoa (dni: integer):boolean;
+var
+ impares:integer;
+ pares:integer;
+ digito: integer;
+ 
+begin 
+ pares:=0;
+ impares:=0;
+ while dni<>0 do begin 
+  digito:=dni mod 10;
+  if (digito mod 2 = 0) then 
+   pares:= pares +1
+  else 
+   impares:= impares +1;
+  dni:= dni div 10; 
+  end;
+ 
+ puntoa:= (impares<pares);
+ end;
+ 
+ 
+procedure inivec (var v:vector);
+var
+ i:integer;
+begin
+ for i:= 1 to 5 do begin 
+  v[i]:=0;
+  end;
+ end; 
+  
+procedure procesardatos (l:lista);
+var
+cantpares: integer;
+max1:integer;
+cod1:integer;
+max2:integer;
+cod2:integer;
+i:integer;
+
+begin
+ max1:=-1;
+ max2:=-1;
+ cod1:=0;
+ cod2:=0;
+ cantpares:=0;
+ inivec;
+ while (l<>nil) do begin 
+  if puntoa(l^.dato.dni) = true then 
+   cantpares:=cantpares +1;
+  v[l^.dato.codigo]:= v[l^.dato.codigo]+1 
+  l:=l^.sig; 
+  end;
+    writeln ('la cantidad de personas con dni con mayor cantidad de dig pares a impares son...',cantpares);
+ for i:=1 to 5 do begin 
+  if v[i]>max1 then begin
+   max2:= max1;
+   cod2:=cod1;
+   max1:=v[i];
+   cod1:=i;
+   end
+  else if v[i]>max2 then begin
+   max2:=v[i];
+   cod2:=i;
+   end;
+  end;
+  writeln ('los dos codigos de genero mas elegidos son...', cod1, "...y...",cod2); 
+  end;
+    
+var
+ l:lista;
+ borrador:integer;
+ 
+begin
+ armarlista (l);
+ procesardatos (l);
+ 
+ 
+ end.
+
+
+
+
+
+  
+  
+  
+
+
+ 
