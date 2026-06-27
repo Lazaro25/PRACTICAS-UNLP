@@ -1,0 +1,108 @@
+PARCIAL 1.
+
+program parcial1;
+const 
+ rangocod= 1..26;
+type
+
+vector2= array [rangocod] of real;
+
+registro2= record
+ nombre:string;
+ preciokilo:real;
+ end;
+ 
+registro= record
+ dni: integer;
+ categoria:rangocod;
+ kilos: real;
+ end;
+
+vector=array [rangocod] of registro2;
+
+lista=^nodo;
+nodo=record
+ dato:registro;
+ sig:lista;
+ end;
+ 
+procedure inivec (var v:vector);
+var
+i:integer;
+r2:registro2;
+begin
+ for i:= 1 to 26 do begin 
+  writeln ('ingrese el nombre del producto de la categoria numero...',i);
+  readln (r2.nombre);
+  writeln ('ingrese el precio por kilo de la categoria numero...',i);
+  readln (r2.preciokilo);
+  v[i]:=r2;
+  end;
+ end;
+ 
+function condiciondni (dni:integer):boolean;
+var
+dig:integer;
+pares:integer;
+begin
+ pares:=0;
+ while (dni <> 0) and (pares < 3) do begin 
+  dig:=dni mod 10;
+  if (dig mod 2=0) then 
+   pares:= pares+1;
+  dni:= dni div 10; 
+  end;
+ condiciondni:= (pares>=3);
+ end;
+
+procedure procesardatos (l:lista;v:vector; var dnimax: integer);
+var 
+v2:vector2;
+i:integer;
+dniact:integer;
+cantcompras:integer;
+maxcompras:integer; 
+totalpares: integer;
+montocompra: real;
+begin
+ for i:= 1 to 26 do 
+  v2[i]:=0;
+ maxcompras:=-1;
+ totalpares:=0;
+ dnimax:=-1;
+ while (l <> nil ) do begin 
+  dniact:=l^.dato.dni;
+  cantcompras:=0;
+  while (l<>nil) and (l^.dato.dni=dniact) do begin 
+   cantcompras:=cantcompras+1;
+   montocompra:= l^.dato.kilos*v[l^.dato.categoria].preciokilo;
+   v2[l^.dato.categoria]:=v2[l^.dato.categoria]+montocompra;
+   if condiciondni (l^.dato.dni) then 
+    totalpares:=totalpares+1;
+   l:= l^.sig;
+   end;  
+  if (cantcompras>maxcompras) then begin
+   maxcompras:=cantcompras;
+   dnimax:=dniact;
+   end;
+  end;
+ writeln ('cantidad de compras de personas con dni con mas de 3 pares:',totalpares);
+ for i:= 1 to 26 do begin
+  writeln ('monto total de la categoria...',i,'...',v2[i]);
+  end;
+ end;
+
+var
+l:lista;
+dnimax:integer;
+v:vector;
+begin
+ inivec (v);
+ procesardatos (l,v,dnimax);
+ writeln ('el dni del cliente con mas compras es...',dnimax);
+ end.
+_________________________________________________________________________________________________________________________________________________________________________________________________________________________ 
+
+
+
+
