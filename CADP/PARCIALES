@@ -103,6 +103,149 @@ begin
  end.
 _________________________________________________________________________________________________________________________________________________________________________________________________________________________ 
 
+parcial 2
+
+program parcial2;
+const 
+rango= 1..20;
+
+type 
+categoria=record
+ nombre: string;
+ preciokilo: real;
+ end;
+ 
+vector=array [rango] of categoria;
+vectorcompras= array [rango] of integer;
+
+compras=record
+ dni:integer;
+ cate:integer;
+ kilos:real;
+ end;
+
+lista=^nodo;
+ nodo=record
+ dato:compras;
+ sig: lista;
+ end;
+
+procedure cargavec (var v2:vector); //se dispone//
+begin
+ //se dispone//
+ end;
+
+procedure inivec (var v:vectorcompras);
+var 
+i:integer;
+begin
+ for i:= 1 to 20 do begin
+  v[i]:= 0;
+  end;
+ end; 
+  
+procedure leerdatos (var c:compras);
+begin
+ writeln ('ingrese el dni del cliente, para detener el ingreso de compras ingrese "-1"');
+ readln (c.dni);
+ if (c.dni <> -1) then begin
+  writeln ('ingrese la categoria del producto');
+  readln (c.cate);
+  writeln ('ingrese los kilos del producto');
+  readln (c.kilos);
+  end; 
+ end;
+ 
+procedure agregaradelante (var l:lista; c:compras);
+var
+aux:lista;
+begin 
+  new (aux);
+  aux^.dato:=c;
+  aux^.sig:=l;
+  l:=aux;
+  end;
+ 
+
+procedure cargarlista (var l:lista);
+var
+c:compras;
+begin
+ l:=nil;
+ leerdatos (c);
+ while (c.dni <> -1) do begin
+  agregaradelante (l,c);
+  leerdatos (c);
+  end;
+ end;
+ 
+function condicionimpar (dni:integer ): boolean;
+var
+dig: integer;
+impares:integer;
+begin
+ impares:=0;
+ while (dni <> 0) do begin
+ dig:=dni mod 10;
+ if (dig mod 2 <> 0) then
+  impares:= impares +1;
+ dni:=dni div 10;
+ end;
+ condicionimpar:= (impares<=5); 
+end;
+
+procedure vectorfinal (v:vectorcompras);
+var
+i:integer;
+begin
+ for i:= 1 to 20 do begin 
+  writeln ('la cantidad de compras de la categoria...',i,'...es...',v[i]);
+  end;
+ end;
+ 
+
+procedure procesar (l:lista; v2:vector; var v:vectorcompras);
+var
+min: real;
+impares: integer;
+clientemenor:integer;
+dniact: integer;
+gastototal:real;
+begin
+ min:=999999999;
+ impares:=0;
+ while (l <> nil) do begin 
+  dniact:=l^.dato.dni;
+  gastototal:=0 ;
+  while (l <> nil) and (dniact=l^.dato.dni) do begin 
+   gastototal:=gastototal + (l^.dato.kilos*v2 [l^.dato.cate].preciokilo);
+   v[l^.dato.cate]:= v[l^.dato.cate]+1;
+   if condicionimpar(l^.dato.dni) then 
+    impares:=impares+1;
+   l:=l^.sig;
+   end;    
+  if (gastototal<min) then begin
+   min:= gastototal;
+   clientemenor:= dniact;
+   end;
+  end;
+ writeln ('el dni del cliente que menos ha gastado es...',clientemenor);
+ vectorfinal (v);
+ writeln ('la cantidad de compras hechas con gente con al menos 5 digitos del dni impares son...',impares);
+ end;
+ 
+var
+l:lista;
+v:vectorcompras;
+v2:vector;
+
+begin 
+ cargavec(v2);
+ inivec(v);
+ cargarlista(l);
+ procesar (l,v2,v);
+ end.
+ 
 
 
 
