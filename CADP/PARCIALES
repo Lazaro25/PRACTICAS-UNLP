@@ -246,6 +246,292 @@ begin
  procesar (l,v2,v);
  end.
  
+________________________________________________________________________________________________________________________________________________________________________________________________________________________-
+
+parcial 3 
+
+program parcial3;
+const
+rango=1..4;
+
+type
+vcontador=array [rango] of integer;
+
+inmueble= record
+ codigo:integer;
+ venta:boolean;
+ direccion: string;
+ tipo:rango;
+ superficie:real;
+ precio:real;
+ end;
+ 
+lista=^nodo;
+nodo=record
+ dato:inmueble;
+ sig:lista;
+ end;
+
+procedure agregaradelante (var l:lista;i:inmueble);
+var
+aux:lista;
+begin
+ new (aux);
+ aux^.dato:=i;
+ aux^.sig:=l;
+ l:=aux;
+ end;
+ 
+
+procedure inivec (var v:vcontador);
+var
+i:integer;
+begin 
+ for i:= 1 to 4 do begin
+  v[i]:=0;
+  end;
+ end;
+ 
+procedure leerdatos (var i:inmueble);
+var
+condicionboolean: integer;
+begin
+ writeln ('ingrese el codigo del inmueble, PARA DETENER LA CARGA DE LA LISTA INGRESAR "-1".');
+ readln (i.codigo);
+ if (i.codigo <> -1) then begin
+  writeln ('presione 1 si es para venta, en caso de ser alquiler oprima otra tecla.');
+  readln (condicionboolean);
+  if (condicionboolean=1) then 
+   i.venta:= true
+  else
+   i.venta:=false;
+  writeln ('ingrese la direccion.');
+  readln (i.direccion);
+  writeln ('ingrese el tipo de inmueble (1=monoambiente, 2=departamento, 3=casa, 4=otro.');
+  readln (i.tipo);
+  writeln ('ingrese el tamaño de la superficie.');
+  readln (i.superficie);
+  writeln ('por ultimo, ingrese el precio.');
+  readln (i.precio);
+  end;
+ end; 
+  
+procedure cargarlista (var l:lista);
+var
+i:inmueble;
+begin
+ l:=nil;
+ leerdatos (i);
+ while (i.codigo <>-1 ) do begin 
+  agregaradelante (l,i);
+  leerdatos (i);
+  end;
+ end;
+ 
+procedure agregarordenado (var l2:lista; i:inmueble);
+var
+ant:lista;
+act:lista;
+aux:lista;
+begin 
+ new (aux);
+ aux^.dato:=i;
+ act:=l2;
+ ant:=l2;
+ while (act <> nil) and (act^.dato.precio > i.precio) do begin
+  ant:=act;
+  act:=act^.sig;
+  end;
+ if (act=l2) then begin
+  aux^.sig:=l2;
+  l2:=aux;
+  end
+ else begin
+  ant^.sig:= aux;
+  aux^.sig:= act;
+  end;
+ end; 
+  
+  
+function condicionpares (codigo:integer):boolean; 
+var
+impares:integer;
+pares:integer;
+dig: integer;
+begin 
+ impares:=0;
+ pares:=0;
+ while codigo <> 0 do begin 
+  dig:=codigo mod 10;
+  if (dig mod 2 = 0) then 
+   pares:=pares +1
+  else
+   impares:=impares + 1;
+  codigo:= codigo div 10;
+  end;
+ condicionpares:= pares>impares;
+ end;
+
+procedure vectorfinal (v:vcontador);
+var
+i:integer;
+begin
+ for i:=1 to 4 do begin
+  writeln ('la cantidad de inmuebles del tipo...',i,'...es...',v[i]);
+  end;
+ end; 
+  
+procedure procesardatos (l:lista; var l2:lista);
+var
+v:vcontador;
+max1:real;
+max2:real;
+cod1:integer;
+cod2:integer;
+begin
+ l2:=nil; 
+ inivec (v);
+ max1:=-1;
+ max2:=-1;
+ while (l<>nil) do begin
+  if (l^.dato.tipo = 2) then begin
+   if (l^.dato.superficie>max1) then begin
+    max2:=max1;
+    cod2:=cod1;
+    max1:=l^.dato.superficie;
+    cod1:=l^.dato.codigo;
+    end
+   else if (l^.dato.superficie >max2) then begin
+     max2:=l^.dato.superficie;
+     cod2:=l^.dato.codigo;
+     end;
+   end;
+  if (not l^.dato.venta) then  
+   v[l^.dato.tipo]:=v[l^.dato.tipo] + 1;
+  if (l^.dato.venta) and (condicionpares (l^.dato.codigo)) then 
+   agregarordenado (l2,l^.dato);
+  l:=l^.sig;
+  end;
+ vectorfinal (v); 
+ writeln ('el codigo del inmueble con mayor superficie es...',cod1);
+ writeln ('el codigo del inmueble con la segunda mayor superficie es ...',cod2);
+ end;
+ 
+var
+l:lista;
+l2:lista;
+begin
+ cargarlista (l);
+ procesardatos (l,l2);
+ end.
+________________________________________________________________________________________________________________________________________________________________________________________________
+
+parcial 4
+
+program parcial4;
+const
+rango= 1000..2500;
+
+type
+viajes= record
+ codigo:rango;
+ año:integer;
+ cantidad:integer;
+ ciudad:string;
+ end;
+
+vcapacidad= array [rango] of integer;
+vcontador= array [rango] of integer;
+vpasajeros= array [rango] of integer;
+
+lista=nodo;
+nodo=record
+ dato:viajes;
+ sig:lista;
+ end;
+
+procedure agregaradelante (var l2:lista; v:viajes);
+var
+aux:lista;
+begin
+ new(aux);
+ aux^.dato:=v;
+ aux^.sig:=l2
+ l2:=aux;
+ end;
+ 
+procedure cargalista (var l:lista);//se dispone//
+begin
+//se dispone//
+ end;
+
+procedure cargarcapacidad (var v:vcapacidad);// se dispone//
+begin
+//se dispone//
+ end;
+
+procedure inivec (var v3:vpasajeros, v2:vcontador);
+var 
+i: integer;
+begin 
+ for i:= 1000 to 2500; do begin 
+  v3[i]:=0;
+  v2[i]:=0;
+  end;
+ end;
+ 
+procedure informev3 (v:vcontador; v3:vpasajeros);
+i:integer;
+
+promedio: real;
+begin 
+ for i:= 1000 to 2500 do begin 
+  if (v[i]<>0) then begin 
+   promedio:= v3[i]/v[i];
+   writeln ('el promedio de pasajeros del avion de codigo...',i,' es de...',promedio );
+   end;
+  end;
+ end; 
+
+procedure procesar (v:vcapacidad; l:lista;var v2:vcontador; var l2:lista; var v3:vpasajeros);
+var
+ via:viajes;
+ codigomax: integer;
+ viajemax:integer;
+begin
+ inivec (v3,v2);
+ viajemax:=-1;
+ while (l<>nil) do begin 
+  v3[l^dato.codigo]:=v3[l^.dato.codigo] + l^.dato.cantidad;
+  v2[l^.dato.codigo]:=v2[l^.dato.codigo]+1
+  if (v2[l^.dato.codigo] > viajemax) then begin
+   viajemax:=v2[l^.dato.codigo];
+   codigomax:=l^.dato.codigo;
+   end;
+  if (l^.dato.año mod 10 = 0) and (l^.dato.ciudad = "punta cana"); then 
+   if (v[l^dato.codigo] <> l^.dato.cantidad) then 
+    agregaradelante (l2,l^.dato);
+    end;
+  l:=l^.sig; 
+  end;
+ writeln ('el codigo del avion con mas viajes es...',codigomax);
+ informev3 (v2,v3);
+ end;
+ 
+var
+v:vcontador;
+v2:vcapacidad;
+v3:vpasajeros;
+l:lista;
+v:viajes;
+l2:lista;
+
+begin
+ l2:=nil;
+ cargalista(l);//se dispone//
+ cargarcapacidad (v2);//se dispone//
+ procesar (v,l,v2,l2,v3);
+ end;
 
 
 
