@@ -65,15 +65,186 @@ ________________________________________________________________________________
 
 2) F10 y Luces ⭐⭐ Escribir un programa que al presionar F10 encienda todas las luces, y al presionarlo
 nuevamente las apague. El programa nunca termina.
+
+PB EQU 31H
+CB EQU 33H
+EOI EQU 20H
+IMR EQU 21H
+INT0 EQU 24H
+N_F10 EQU 15
+
+ORG 60
+DW BOTON
+
+ORG 1000H
+ESTADO DB 00H
+
+ORG 2000H
+CLI 
+MOV AL, 0FEH 
+OUT IMR, AL
+MOV AL, N_F10
+OUT INT0, AL 
+MOV AL, 0
+OUT PB, AL 
+OUT CB, AL 
+STI 
+LOOP:JMP LOOP
+INT 0
+
+ORG 3000H
+BOTON:MOV AL, ESTADO 
+XOR AL, 00000000B
+MOV ESTADO, AL
+OUT PB, AL 
+MOV AL,EOI
+OUT EOI, AL 
+IRET 
+END 
+
+______________________________________________________________________________________________________________________________________________________________________________________
+
 3) Ruleta, F10 y azar ⭐⭐ Escribir un programa que permita seleccionar un dígito al azar para jugar a la
 ruleta. Para eso, el programa principal debe iterar continuamente, cambiando un valor de un registro desde
 el ‘0’ hasta el ‘9’ (y volviendo al ‘0’ luego del ‘9’). Cuando se presiona F10, la letra queda “seleccionada” en
 base al valor del registro, y debe mostrarse de inmediato en la pantalla. Luego el programa termina
+
+EOI EQU 20H
+IMR EQU 21H
+INT0 EQU 24H
+N_F10 EQU 15
+
+ORG 60 
+DW F10
+
+ORG 1000H
+RULETA DB "0123456789"
+
+ORG 3000H
+F10: MOV AL,1 
+INT 7 
+INT 0 
+
+
+ORG 2000H
+CLI 
+MOV AL, 0FEH 
+OUT IMR, AL
+MOV AL, N_F10
+OUT INT0, AL 
+STI
+REINICIO:MOV DL, 10 
+MOV BX, OFFSET RULETA 
+LOOP:INC BX
+DEC DL
+JNZ LOOP
+JMP REINICIO 
+END 
+
 4) F10, lectura e Impresora con PIO ⭐⭐⭐ Escribir un programa que debe mostrar en pantalla el mensaje
 “PRESIONE F10 PARA COMENZAR” y una vez que el usuario presiona F10, leer de teclado un mensaje de
 10 caracteres. Este mensaje debe luego ser enviado a través de la pila a una subrutina para imprimirse en la
 impresora mediante el PIO. La configuración del PIO también debe hacerse en una subrutina aparte.
+
+PA EQU 30H
+PB EQU 31H
+CA EQU 32H
+CB EQU 33H
+EOI EQU 20H
+IMR EQU 21H
+INT0 EQU 24H
+N_F10 EQU 15
+
+ORG 60 
+DW F10 
+
+ORG 1000H
+MSJ DB "PRESIONE F10 PARA COMENZAR"
+MSJFIN DB ?
+CADENA DB ?
+ORG 2000H
+CLI 
+MOV AL, 0FEH
+OUT IMR, AL 
+MOV AL, N_F10
+OUT INT0, AL 
+STI 
+MOV BX, OFFSET MSJ
+MOV AL, OFFSET MSJFIN-OFFSET MSJ
+INT 7
+LOOP: JMP LOOP 
+
+
+
+ORG 3000H
+F10: MOV DL, 10
+MOV BX, OFFSET CADENA 
+SALTO: INT 6 
+PUSH BX
+INC BX
+DEC DL
+CMP DL, 0 
+JNZ SALTO
+CALL IMPRESORA 
+MOV AL, EOI
+OUT EOI, AL 
+IRET 
+
+ORG 3200H
+IMPRESORA: MOV DL, 10
+CALL PIOCONF
+SIGUE:CALL POLL
+POP BX 
+MOV AL, [BX] 
+OUT PB, AL 
+CALL STROBE0 
+CALL STROBE1
+DEC DL
+CMP DL, 0
+JNZ SIGUE
+INT 0 
+
+ORG 3300H
+PIOCONF: MOV AL, 0FDH
+OUT CA, AL 
+MOV AL, 0
+OUT CB, AL 
+RET 
+
+ORG 3400H
+POLL: IN AL, PA 
+AND AL, 1
+JNZ POLL
+RET
+
+ORG 3500H
+STROBE0: IN AL, PA 
+AND AL, 0FDH
+OUT PA, AL 
+RET
+
+ORG 3600H
+STROBE1:  IN AL, PA
+OR AL, 02H
+OUT PA, AL 
+RET
+END 
+
+________________________________________________________________________________________________________________________________________________________________________________________________
+
 5) Timer y Luces ⭐⭐ Escribir un programa que debe leer el estado de las llaves y enviarlo a una subrutina.
 La subrutina debe llamarse LUCES12 y recibe el estado por referencia a través de la pila. Si el estado indica
 que la llave 7 (la de más a la izquierda) está prendida entonces debe encender todas las luces por 12
 segundos y luego apagar todas las luces. En caso contrario no debe hacer nada.
+
+
+
+
+
+
+
+
+
+
+
+
