@@ -237,6 +237,66 @@ La subrutina debe llamarse LUCES12 y recibe el estado por referencia a través d
 que la llave 7 (la de más a la izquierda) está prendida entonces debe encender todas las luces por 12
 segundos y luego apagar todas las luces. En caso contrario no debe hacer nada.
 
+PA EQU 30H
+PB EQU 31H
+CA EQU 32H
+CB EQU 33H
+EOI EQU 20H
+IMR EQU 21H
+INT1 EQU 25H
+CONT EQU 10H
+COMP EQU 11H
+N_F2 EQU 15
+
+ORG 60
+DW CLK 
+
+ORG 1000H
+ESTADO DB 00H
+
+
+ORG 2000H
+MOV DL, 2
+CLI 
+MOV AL, 0FDH 
+OUT IMR, AL 
+MOV AL, N_F2
+OUT INT1, AL 
+MOV AL, 0FFH
+OUT CA, AL 
+STI 
+
+LOOP:MOV CX, AX
+PUSH CX
+CALL LUCES12
+JMP LOOP 
+
+
+ORG 3000H
+CLK:MOV AL, 00000000B
+OUT PB,AL
+MOV AL, EOI 
+OUT EOI, AL 
+INT 0
+IRET 
+
+ORG 3200H
+LUCES12: POP CX
+MOV AX, CX
+IN AL, PA
+CMP AL, 10000000B
+JZ CONTADOR
+RET
+CONTADOR: MOV AL, 0
+OUT CONT, AL
+MOV AL, 12
+OUT COMP, AL
+MOV AL, 11111111B
+OUT PB, AL 
+LAZO:JMP LAZO 
+END 
+ 
+EDIT: DE MOMENTO SOLO FUNCIONA BIEN SI SE COLOCA DE UNA LA LLAVE 7, EL MARTES LO ARREGLO 
 
 
 
