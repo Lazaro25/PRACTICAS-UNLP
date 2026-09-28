@@ -298,6 +298,29 @@ END
  
 EDIT: DE MOMENTO SOLO FUNCIONA BIEN SI SE COLOCA DE UNA LA LLAVE 7, EL MARTES LO ARREGLO 
 
+____________________________________________________________________________________________________________________________________________________________________________________________
+
+6) F10, impresora con HS y dígitos ⭐⭐⭐ Escribir un programa para imprimir en la impresora un conteo
+regresivo en base a un dígito ingresado por teclado. Por ejemplo, si el usuario ingresa “3”, se debe imprimir
+“3 2 1 0”. El programa comienza leyendo un carácter dígito con la subrutina 📄 LEER_DIGITO. Luego espera
+a que el usuario presione F10 para comenzar la impresión, y llama a la subrutina 📄 DESCENDER que la
+implementa. 📄 LEER_DIGITO muestra en pantalla el mensaje “INGRESE UN NUMERO DEL 1 AL 9:” y lee un
+carácter de teclado. Si el carácter ingresado no corresponde al número solicitado, se debe volver a leer un
+carácter hasta que el usuario ingrese efectivamente un número del 1 al 9. 📄 DESCENDER recibe el dígito por valor y por la pila, y envía a la impresora en forma descendente
+desde el número ingresado hasta el “0”, utilizando el Handshake por Consulta de Estado.
+
+
+
+
+7) Dispositivo nuevo con PIO ⭐⭐⭐ Escribir un programa para VonSim que envíe la cadena de caracteres
+“Hola!” a un dispositivo nuevo, conectado a los 8 bits del puerto PB. Este dispositivo recibe la cadena de a un
+carácter a la vez, esperando 5 segundos entre cada carácter. Para indicar al dispositivo que finalizó el envío
+de datos, se debe enviar el código ascii 0 luego de enviar todos los carácteres del string. El programa debe
+finalizar cuando se han enviado todos los caracteres de la cadena, o cuando se presiona la tecla F10,
+cancelando el envío cancelando el envío de los caracteres que restan.
+Ejemplo para enviar la cadena “ASDF”: Envío de la “A” → 5 segundos de espera →Envío de la “S” → 5
+segundos de espera → Envío de la “D” → 5 segundos de espera → Envío de la “F” → 5 segundos de
+espera → Envío de 0
 
 
 
